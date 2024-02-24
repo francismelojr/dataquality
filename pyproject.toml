@@ -1,0 +1,32 @@
+[tool.poetry]
+name = "data-quality"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "3.11.5"
+mkdocs = "^1.5.3"
+pytest = "^8.0.1"
+taskipy = "^1.12.2"
+ruff = "^0.2.2"
+blue = "^0.9.1"
+isort = "^5.13.2"
+pytest-cov = "^4.1.0"
+sqlalchemy = "^2.0.27"
+pandera = "^0.18.0"
+pandas = "^2.2.1"
+python-dotenv = "^1.0.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.taskipy.tasks]
+lint = 'ruff . && blue --check . --diff'
+format = 'blue .  && isort .'
+pre_test = 'task lint'
+test = 'pytest -s -x --cov=app -vv'
+post_test = 'coverage html'
